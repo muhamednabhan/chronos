@@ -23,21 +23,26 @@ The project focuses on presenting sourced information rather than generating his
 
 ## Features
 
+![Chronos Timeline](https://github.com/muhamednabhan/chronos/raw/main/chronos/result.png)
+
 ### 1. Historical Search and Archive Records
 
 Search for historical topics and retrieve records from Europeana, Wikidata and the Smithsonian. Results are combined into a unified catalogue with descriptions, images, dates and links to their original sources.
+
+![Chronos Map and Gallery](https://github.com/muhamednabhan/chronos/raw/main/chronos/result2.png)
 
 ### 2. Interactive Timeline
 
 Historical records with date information are displayed on an interactive SVG timeline. Users can explore the chronological order of events and select entries to view additional details and related information.
 
-![Chronos Timeline](https://github.com/muhamednabhan/chronos/raw/main/chronos/result.png)
 
 ### 3. Historical Gallery
 
 Browse retrieved archive records through an image-based gallery. Each entry includes available descriptions, images and links to the original archive.
 
 The gallery also supports lazy loading and progressive loading of additional records.
+![Chronos Connection Graph](https://github.com/muhamednabhan/chronos/raw/main/chronos/result3.png)
+
 
 ### 4. Geographic Map
 
@@ -45,7 +50,7 @@ Records containing geographic coordinates are displayed on an interactive Leafle
 
 Selecting a map marker displays additional information and source links.
 
-![Chronos Map and Gallery](https://github.com/muhamednabhan/chronos/raw/main/chronos/result2.png)
+
 
 ### 5. Connection Graph
 
@@ -53,7 +58,6 @@ The connection graph uses vis-network to display relationships between historica
 
 Users can explore how different records are connected and select individual nodes to understand their relationships.
 
-![Chronos Connection Graph](https://github.com/muhamednabhan/chronos/raw/main/chronos/result3.png)
 
 ### 6. Ask the Archive
 
