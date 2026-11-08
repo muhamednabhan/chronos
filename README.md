@@ -41,6 +41,7 @@ Historical records with date information are displayed on an interactive SVG tim
 Browse retrieved archive records through an image-based gallery. Each entry includes available descriptions, images and links to the original archive.
 
 The gallery also supports lazy loading and progressive loading of additional records.
+
 ![Chronos Connection Graph](https://github.com/muhamednabhan/chronos/raw/main/chronos/result3.png)
 
 
