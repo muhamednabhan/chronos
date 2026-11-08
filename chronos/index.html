@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chronos · Historical Evidence Explorer</title>
+  <meta name="description" content="Search Europeana, Wikidata, Smithsonian and Wikipedia for sourced historical evidence.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="wordmark">THE <b>CHRONOS</b> ARCHIVE</div>
+    <div class="navlinks"><span class="active">About</span><span>Collections</span><span>Chronology</span><span>Sources</span></div>
+    <div class="issue">ARCHIVE SERIES / VOL. III<br>THE CHRONOS SOCIETY</div>
+  </header>
+
+  <section class="hero">
+    <div class="pagenum">01 / 11</div>
+    <div class="arc-label">Archive Entry Point</div>
+    <h1 class="arc-title">Chronos</h1>
+    <p class="arc-intro">Historical Evidence Explorer. Enter a civilization, empire, settlement or historical figure below to assemble every catalogued record we hold, drawn from Wikidata, Europeana and the Smithsonian Open Access initiative.</p>
+    <div class="arc-label muted" style="margin-top:22px">Search the Record</div>
+    <form id="search-form" class="search-row">
+      <input id="q" type="text" autocomplete="off" aria-label="Search" placeholder="Indus Valley Civilization · Roman Empire · Egyptian Pharaohs …">
+      <button type="submit" id="go">Examine →</button>
+    </form>
+  </section>
+
+  <hr class="rule">
+
+  <div id="status"></div>
+  <main id="app">
+    <div class="empty-state">
+      <div class="mark">The record awaits your inquiry.</div>
+      <div class="sub">Wikidata &nbsp;·&nbsp; Europeana &nbsp;·&nbsp; Smithsonian Open Access</div>
+    </div>
+  </main>
+
+  <section class="creator-section reveal" aria-label="Meet the creator">
+    <div class="creator-rule"></div>
+    <div class="arc-label">Meet the Creator</div>
+    <div class="creator-row">
+      <h2 class="arc-title">Meet the Creator</h2>
+      <div class="creator-actions">
+        <a class="creator-icon" href="mailto:?subject=Hello%20from%20Chronos" aria-label="Email creator" title="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+        <a class="creator-icon" href="https://drive.google.com/file/d/1GwRfg-8FNkmGJ2ACoJMqRs_iR7vA0tXN/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Creator resume" title="Resume"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5M10 13h5M10 17h5"/></svg></a>
+        <a class="creator-icon" href="https://linkedin.com/in/muhamed-nabhan" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5.5v.1M10 19v-6a4 4 0 0 1 8 0v6M10 10v9"/><circle cx="5" cy="5" r="1"/></svg></a>
+        <a class="creator-icon" href="https://muhamed-nabhan.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Portfolio website" title="Portfolio"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="arc-footer">
+    <div class="baseline">
+      <span>THE CHRONOS SOCIETY</span><span>ARCHIVE SERIES / VOL. III</span>
+      <span>© 2026 — No AI-generated content. Every record and every chat answer links to its Wikipedia or archive source.</span>
+    </div>
+  </footer>
+</div>
+
+<!-- Chatbot (revealed after a search) -->
+<button id="chat-fab" class="hidden" aria-label="Ask the archive">Ask the Archive</button>
+<aside id="chat-panel" class="hidden" aria-label="Archive assistant">
+  <div class="chat-head">
+    <div><div class="arc-label" style="margin:0">Ask the Archive</div><div id="chat-sub" class="chat-sub"></div></div>
+    <button id="chat-close" aria-label="Close">×</button>
+  </div>
+  <div id="chat-log" class="chat-log"></div>
+  <div id="chat-chips" class="chat-chips"></div>
+  <form id="chat-form" class="chat-form">
+    <input id="chat-input" type="text" autocomplete="off" placeholder="e.g. When did the Battle of Waterloo start?">
+    <button type="submit">Send</button>
+  </form>
+</aside>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<script src="app.js"></script>
+<script>
+  const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    if (entry.isIntersecting) { entry.target.classList.add('revealed'); revealObserver.unobserve(entry.target); }
+  }), { threshold: 0.12 });
+  const watchReveal = (el) => { if (!el.classList.contains('reveal')) el.classList.add('reveal'); revealObserver.observe(el); };
+  document.querySelectorAll('.hero, #app > *, .creator-section, .arc-footer').forEach(watchReveal);
+  new MutationObserver(() => document.querySelectorAll('#app > *').forEach(watchReveal)).observe(document.querySelector('#app'), { childList: true });
+</script>
+</body>
+</html>
